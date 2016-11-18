@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','image'
+        'name', 'email', 'password','image','user_type_id'
     ];
 
     /**
@@ -33,10 +33,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public static function filterAndPaginate($name,$email)
+    public static function filterAndPaginate($name,$email,$type)
     {
-        return User::where('name','like',"%$name%")
-            ->where('email','like',"%$email%")
+        return User::join('user_types','users.user_type_id','=','user_types.id')
+            ->where('users.name','like',"%$name%")
+            ->where('users.email','like',"%$email%")
+            ->where('user_types.name','like',"%$type%")
+            ->select('users.*','user_types.name as type')
             ->paginate();
+    }
+
+    public function user_type()
+    {
+        return $this->belongsTo('\App\UserType');
     }
 }

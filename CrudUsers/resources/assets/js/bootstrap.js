@@ -9,6 +9,8 @@ window._ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
+require('bootstrap-datepicker');
+require('bootstrap-select');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -25,7 +27,8 @@ require('vue-resource');
  * included with Laravel will automatically verify the header's value.
  */
 
-Vue.http.interceptors.push((request, next) => {
+Vue.http.interceptors.push(function(request, next)
+{
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
 
     next();

@@ -19,9 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('image',100)->nullable();
+            $table->integer('user_type_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('user_type_id')->references('id')
+                ->on('user_types')->onDelete('cascade')->onUpdate('cascade');
+
         });
 
         $now = date('Y-m-d H:i:s');
@@ -29,6 +33,7 @@ class CreateUsersTable extends Migration
             'name' => 'Administrador',
             'email' => 'admin@admin.com',
             'password' => bcrypt('secret'),
+            'user_type_id' => 1,
             'created_at' => $now,
             'updated_at' => $now
         ]);
