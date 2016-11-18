@@ -37,8 +37,7 @@
             <tr>
                 <td>
                     @if(Storage::disk('images')->has($user->image))
-                        {{--}}<img src="{{url("/users/showImagen/".$user->image)}}" width="50px" height="50px" />--}}
-                        <img src="http://localhost:8080/users/showImagen/user_2.png" width="50px" height="50px" />
+                        <img src="{{url("/users/showImagen/".$user->image)}}" width="50px" height="50px" />
                     @endif
                 </td>
                 <td>{{$user->name}}</td>
