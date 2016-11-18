@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'],function (){
-    Route::get('/users/list','UsersController@index');
+    Route::get('/users/list/{success?}/{user?}','UsersController@index');
     Route::get('/users/create','UsersController@create');
     Route::post('/users/create','UsersController@store');
     Route::get('/users/edit/{id}','UsersController@edit');

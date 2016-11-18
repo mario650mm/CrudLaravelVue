@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+    <a class="btn btn-warning btn-sm" href="{{url("/users/list")}}"><i class="fa fa-backward"></i>
+        Regresar</a>
     <h3>Crear usuario</h3>
     <div id="user">
         <edit-user d_type_users="{{$userTypes}}" d_user="">
@@ -22,50 +24,9 @@
 
 @section('scripts')
     <script type="text/javascript">
-        Vue.component('edit-user', {
-            template: '#edit-user-template',
-            props: ['d_type_users', 'd_user'],
-            data: function () {
-                return {
-                    user_types: [],
-                    user: {}
-                };
-            },
-            methods: {
-                enviar: function (event) {
-                    event.preventDefault();
-                    var url = "{{url("/users/create")}}";
-                    var data = new FormData($("#userForm")[0]);
-                    $.ajax({
-                        method: "post",
-                        url: url,
-                        data: data,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (data) {
-                            if (data == "ok") {
-                                window.location = "{{url("/users/list")}}";
-                            }else{
-                                alert("error de registro");
-                            }
-                        },
-                        error: function () {
-                            alert("error 500");
-                        }
-                    });
-                }
-            },
-            created: function () {
-                this.user_types = JSON.parse(this.d_type_users);
-                if(this.d_user.length>0){
-                    this.user = JSON.parse(this.d_user);
-                }
-            }
-        });
-
-        var vm = new Vue({
-            el: '#user'
-        });
+        var urlIndex = "{{url("/users/list")}}";
+        var urlGeneral = "{{url("/users/create")}}";
+        var urlValidation = "{{url("/users/create")}}";
     </script>
+    <script src="{{asset("/js/users.js")}}"></script>
 @endsection
