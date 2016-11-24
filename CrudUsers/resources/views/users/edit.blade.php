@@ -29,9 +29,32 @@
             @endsection
             @include('users.partials.inputs')
             <input type="hidden" id="imgHidden" name="imgHidden" value="{{$user->image}}" />
-            <button type="submit" id="btnGuardar" class="btn btn-success btn-sm" v-on:click="enviar($event)"><i
-                        class="fa fa-floppy-o"></i> Guardar
-            </button>
+            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Listas</h4>
+                        </div>
+                        <div class="modal-body">
+                            Estás seguro de actualizar este usuario llamado <b>{{    $user->name}}</b> ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i
+                                        class="fa fa-times"></i>
+                                Cancelar operación
+                            </button>
+                            <button type="submit" class="btn btn-success btn-sm"
+                                    v-on:click="enviar($event)"><i class="fa fa-floppy-o"></i>
+                                Guardar cambios
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                    data-target="#updateModal"><i class="fa fa-floppy-o"></i> Guardar</button>
         </form>
     </template>
 @endsection
