@@ -38,6 +38,7 @@ Vue.component('edit-user', {
                             $("#errorMessage").show('fast');
                         },200);
                         setTimeout(function () {
+                            $("#errorMessage").html("");
                             $("#errorMessage").hide('fast');
                         },5000);
                     });
