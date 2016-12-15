@@ -62,16 +62,25 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);
             $image = $request->image;
             if ($image) {
-                $userDB = User::all(['id'])->last();
+                $userDB = User::get(['id'])->last();
                 $userId = $userDB->id + 1;
                 $imageName = 'user_' . $userId . '.png';
                 Image::make($image->getRealPath())->resize(300, 200)->save($directory . $imageName);
                 $user->image = $imageName;
             }
-            $user->user_type_id = $request->type;
+            $userType = UserType::where('id',$request->type)->first();
+            if($userType) {
+                $user->user_type_id = $request->type;
+            }else{
+                $userType = new UserType();
+                $userType->name = $request->type;
+                $userType->save();
+                $user->user_type_id = $userType->id;
+            }
+
             $user->save();
             \DB::commit();
-            return response()->json('ok');
+            return response()->json(["result" => "ok","user" => $user->name]);
         }
 
     }
@@ -121,10 +130,18 @@ class UsersController extends Controller
                 Image::make($image->getRealPath())->resize(300, 200)->save($directory . $imageName);
                 $user->image = $imageName;
             }
-            $user->user_type_id = $request->type;
+            $userType = UserType::where('id',$request->type)->first();
+            if($userType) {
+                $user->user_type_id = $request->type;
+            }else{
+                $userType = new UserType();
+                $userType->name = $request->type;
+                $userType->save();
+                $user->user_type_id = $userType->id;
+            }
             $user->save();
             \DB::commit();
-            return response()->json('ok');
+            return response()->json(["result" => "ok","user" => $user->name]);
         }
 
     }

@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset("/css/app.css")}}"/>
     <link rel="stylesheet" href="{{asset("/css/main.css")}}"/>
+    <link rel="stylesheet" href="{{asset("/css/selectpicker-add-option.css")}}"/>
 
     <!-- Scripts -->
     <script>
@@ -110,7 +111,8 @@
 </div>
 
 <!-- Scripts -->
-<script src="/js/app.js"></script>
+<script src="{{asset("/js/app.js")}}"></script>
+<script src="{{asset("/js/selectpicker-add-option.js")}}"></script>
 <script type="text/javascript">
     setTimeout(function () {
         $("#success").show('fast');

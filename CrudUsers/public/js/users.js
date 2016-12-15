@@ -12,7 +12,7 @@ Vue.component('edit-user', {
         enviar: function (event) {
             event.preventDefault();
             var url = window.urlGeneral;
-            var data = new FormData($("#userForm")[0]);
+            var data = new FormData(document.getElementById('userForm'));
             console.log(url);
             $.ajax({
                 method: "post",
@@ -22,11 +22,11 @@ Vue.component('edit-user', {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    if (data == "ok") {
+                    if (data["result"] == "ok") {
                         if(url == window.urlValidation){
-                            window.location = window.urlIndex+"/create"+"/"+$("#name").val();
+                            window.location = window.urlIndex+"/create"+"/"+data["user"];
                         }else{
-                            window.location = window.urlIndex+"/update"+"/"+$("#name").val();
+                            window.location = window.urlIndex+"/update"+"/"+data["user"];
                         }
                     }
                 },

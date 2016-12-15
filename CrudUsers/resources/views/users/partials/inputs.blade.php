@@ -23,7 +23,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         <label for="type">Tipo de usuario</label>
-        <select id="type" name="type" class="form-control selectpicker" data-live-search="true" v-model="user.user_type_id">
+        <select id="type" name="type" class="form-control selectpicker-option" data-live-search="true" v-model="user.user_type_id">
             <option data-hidden="true">Seleccione un tipo..</option>
             <option v-for="user_type in user_types" :value="user_type.id">@{{user_type.name}}</option>
         </select>
