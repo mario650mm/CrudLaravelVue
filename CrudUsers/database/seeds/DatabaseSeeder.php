@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create();
         // $this->call(UsersTableSeeder::class);
-        for($i=0;$i<50;$i++){
+        /*for($i=0;$i<50;$i++){
             \DB::table('users')->insert([
                 'name' => $faker->firstName,
                 'email' => $faker->email,
                 'password' => bcrypt('secret'),
                 'user_type_id' => $faker->numberBetween($min=1,$max=4),
             ]);
-        }
+        }*/
     }
 }
