@@ -19,6 +19,7 @@
     "vue-resource": "^1.0.3"
   },
   "dependencies": {
-    "select-picker": "^0.3.1"
+    "select-picker": "^0.3.1",
+    "vuejs-paginator": "^2.0.0"
   }
 }

@@ -18,13 +18,14 @@ class UsersController extends Controller
      */
     public function index(Request $request, $success = null, $user = null)
     {
-        $users = User::filterAndPaginate($request->get('name'), $request->get('email'), $request->get('type'));
+
         if ($success == "create") {
             return redirect("/users/list")->with('success', 'El usuario  '.$user.'   ¡ha sido registrado existosamente!');
         } else if ($success == "update") {
             return redirect("/users/list")->with('success', 'El usuario  ' .$user. '   ¡ha sido actualizado existosamente!');
         }else{
-            return view("users.index", ["users" => $users]);
+            $users = User::filterAndPaginate($request->get('name'), $request->get('email'), $request->get('type'));
+            return view("users.index",["users" => $users]);
         }
     }
 
