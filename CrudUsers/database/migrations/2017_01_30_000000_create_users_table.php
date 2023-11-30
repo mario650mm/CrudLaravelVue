@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -15,21 +16,23 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('name')->index();
+            $table->string('email')->unique()->index();
             $table->string('password');
             $table->string('image',100)->nullable();
-            $table->integer('user_type_id')->unsigned();
+            $table->integer('user_type_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_type_id')->references('id')
-                ->on('user_types')->onDelete('cascade')->onUpdate('cascade');
+                ->on('user_types')->onDelete('set null')->onUpdate('set null');
 
         });
-
+        
+        date_default_timezone_set('America/Mexico_City');
         $now = date('Y-m-d H:i:s');
-        \DB::table('users')->insert([
+
+        User::insert([
             'name' => 'Administrador',
             'email' => 'admin@admin.com',
             'password' => bcrypt('secret'),
