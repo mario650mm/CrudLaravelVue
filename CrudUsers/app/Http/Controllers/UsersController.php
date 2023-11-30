@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -55,7 +56,7 @@ class UsersController extends Controller
             "type" => "required"
         ]);
         if($validation == null){
-            \DB::beginTransaction();
+            DB::beginTransaction();
             $directory = "../storage/app/public/images/";
             $user = new User();
             $user->name = $request->name;
@@ -80,7 +81,7 @@ class UsersController extends Controller
             }
 
             $user->save();
-            \DB::commit();
+            DB::commit();
             return response()->json(["result" => "ok","user" => $user->name]);
         }
 
@@ -115,7 +116,7 @@ class UsersController extends Controller
         ]);
 
         if($validation == null){
-            \DB::beginTransaction();
+            DB::beginTransaction();
             $directory = "../storage/app/public/images/";
             $user = User::find($id);
             $user->name = $request->name;
@@ -141,7 +142,7 @@ class UsersController extends Controller
                 $user->user_type_id = $userType->id;
             }
             $user->save();
-            \DB::commit();
+            DB::commit();
             return response()->json(["result" => "ok","user" => $user->name]);
         }
 
@@ -155,10 +156,10 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
         $user = User::find($id);
         $user->delete();
-        \DB::commit();
+        DB::commit();
         return redirect('/users/list')->with('warning','El usuario  '.$user->name.' ¡ha sido eliminado sastifactoriamente!');
     }
 
